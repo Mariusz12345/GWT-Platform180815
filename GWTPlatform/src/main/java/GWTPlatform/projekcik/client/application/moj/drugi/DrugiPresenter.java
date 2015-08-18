@@ -9,10 +9,12 @@ import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.ContentSlot;
 import com.gwtplatform.mvp.client.annotations.ProxyCodeSplit;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
+import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 
+import GWTPlatform.projekcik.client.application.moj.drugi.glowny.GlownyPresenter;
 import GWTPlatform.projekcik.client.place.NameTokens;
 public class DrugiPresenter extends Presenter<DrugiPresenter.MyView, DrugiPresenter.MyProxy>  {
     interface MyView extends View  {
@@ -20,9 +22,7 @@ public class DrugiPresenter extends Presenter<DrugiPresenter.MyView, DrugiPresen
     	public Label getDrugilabel();
     	public Label getTrzecilabel();
     }
-    @ContentSlot
-    public static final Type<RevealContentHandler<?>> SLOT_Drugi = new Type<RevealContentHandler<?>>();
-
+  
     @NameToken(NameTokens.drugi)
     @ProxyCodeSplit
     interface MyProxy extends ProxyPlace<DrugiPresenter> {
@@ -35,6 +35,9 @@ public class DrugiPresenter extends Presenter<DrugiPresenter.MyView, DrugiPresen
             MyProxy proxy) {
         super(eventBus, view, proxy, RevealType.Root);
         
+    }
+    protected void revealInParent(){
+    	RevealContentEvent.fire(this, GlownyPresenter.SLOT_Glowny, this);
     }
     
    private String name="";

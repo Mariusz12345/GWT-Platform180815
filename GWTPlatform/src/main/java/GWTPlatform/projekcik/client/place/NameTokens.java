@@ -1,10 +1,12 @@
 package GWTPlatform.projekcik.client.place;
 
 public class NameTokens {
+	public static final String trzeci = "trzeci";
+
 	public static final String drugi = "drugi";
 
 	public static final String second = "second";
-	
+
 	public static final String first = "first";
 
 	public static final String home = "!home";
@@ -23,6 +25,10 @@ public class NameTokens {
 
 	public static String getDrugi() {
 		return drugi;
+	}
+
+	public static String getTrzeci() {
+		return trzeci;
 	}
 
 }

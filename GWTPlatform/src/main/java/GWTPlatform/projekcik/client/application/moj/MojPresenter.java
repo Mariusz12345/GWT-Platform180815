@@ -1,30 +1,31 @@
 package GWTPlatform.projekcik.client.application.moj;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.shared.GwtEvent.Type;
-import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-    import com.gwtplatform.mvp.client.Presenter;
+import com.gwtplatform.mvp.client.Presenter;
+import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;
-import com.gwtplatform.mvp.client.annotations.ContentSlot;
 import com.gwtplatform.mvp.client.annotations.ProxyCodeSplit;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
+import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 import com.gwtplatform.mvp.client.annotations.NameToken;
-import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 
+import GWTPlatform.projekcik.client.application.moj.drugi.glowny.GlownyPresenter;
+import GWTPlatform.projekcik.client.application.moj.presenterwidget.PresenterWidgetPresenter;
 import GWTPlatform.projekcik.client.place.NameTokens;
 public class MojPresenter extends Presenter<MojPresenter.MyView, MojPresenter.MyProxy>  {
-    interface MyView extends View  {
+   
+	public static final Object SLOT_page = new  Object();
+	
+	interface MyView extends View  {
     	
     	public Label getPierszTekst();
     	public TextBox getPierwszyBox();
@@ -32,8 +33,8 @@ public class MojPresenter extends Presenter<MojPresenter.MyView, MojPresenter.My
     	public TextBox getDrugiBox();
     	public TextBox getTrzeciBox();
     }
-    @ContentSlot
-    public static final Type<RevealContentHandler<?>> SLOT_Moj = new Type<RevealContentHandler<?>>();
+	
+   @Inject PresenterWidgetPresenter  widgetPresenter;
 
     @NameToken(NameTokens.first)
     @ProxyCodeSplit
@@ -48,6 +49,9 @@ public class MojPresenter extends Presenter<MojPresenter.MyView, MojPresenter.My
         super(eventBus, view, proxy, RevealType.Root);
         
     }
+    protected void revealInParent(){
+    	RevealContentEvent.fire(this, GlownyPresenter.SLOT_Glowny, this);
+    }
     
     protected void onBind() {
         super.onBind();
@@ -58,6 +62,8 @@ public class MojPresenter extends Presenter<MojPresenter.MyView, MojPresenter.My
     
     protected void onReset(){
     	super.onReset();
+    	
+    	setInSlot(SLOT_page, widgetPresenter);
     	// w presenterze ustawiamy wartosc boxa
     	getView().getPierwszyBox().setText("Podaj imie klienta");
     	getView().getDrugiBox().setText("Podaj nazwisko klienta");
@@ -66,8 +72,8 @@ public class MojPresenter extends Presenter<MojPresenter.MyView, MojPresenter.My
     	getView().getPierwszyPrzycisk().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
+				@SuppressWarnings("deprecation")
 				PlaceRequest request = new PlaceRequest(NameTokens.drugi).with("name", getView().getPierwszyBox().getText());
-				PlaceRequest request2 = new PlaceRequest(NameTokens.drugi).with("name", getView().getDrugiBox().getText());
 				placeMenager.revealPlace(request);
 			}
 		});
