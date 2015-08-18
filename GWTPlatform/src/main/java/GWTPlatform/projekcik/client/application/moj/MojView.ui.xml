@@ -1,10 +1,12 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
-             <g:HTMLPanel>Pierwszy presenter trening
-             <g:Label text = "Przykladowy tekst" ui:field="pierszTekst"/>
+             <g:HTMLPanel>Formularz zgłoszeniowy klienta
+             <!-- tworzenie uifieldow --> 
+             <g:Label text = "Dane klienta" ui:field="pierszTekst"/>
              <g:TextBox ui:field="pierwszyBox"/>
-             <g:Button text = "wcisnij mnie!" ui:field="pierwszyPrzycisk"/>
-             
+             <g:TextBox ui:field="drugiBox"/>
+             <g:TextBox ui:field="trzeciBox"/>
+             <g:Button text = "zapisz!" ui:field="pierwszyPrzycisk"/>
              </g:HTMLPanel>
 </ui:UiBinder>

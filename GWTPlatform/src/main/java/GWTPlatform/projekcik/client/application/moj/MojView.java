@@ -16,11 +16,31 @@ class MojView extends ViewImpl implements MojPresenter.MyView {
     interface Binder extends UiBinder<Widget, MojView> {
     }
 
+    // tworzymy uifieldy
    @UiField Label pierszTekst;
    @UiField TextBox pierwszyBox;
    @UiField Button pierwszyPrzycisk;
+   @UiField TextBox drugiBox;
+   @UiField TextBox trzeciBox;
+   
 
-    @Inject
+    public TextBox getDrugiBox() {
+	return drugiBox;
+}
+
+public void setDrugiBox(TextBox drugiBox) {
+	this.drugiBox = drugiBox;
+}
+
+public TextBox getTrzeciBox() {
+	return trzeciBox;
+}
+
+public void setTrzeciBox(TextBox trzeciBox) {
+	this.trzeciBox = trzeciBox;
+}
+
+	@Inject
     MojView(Binder uiBinder) {
         initWidget(uiBinder.createAndBindUi(this));
     }
@@ -48,8 +68,5 @@ class MojView extends ViewImpl implements MojPresenter.MyView {
 	public void setPierwszyPrzycisk(Button pierwszyPrzycisk) {
 		this.pierwszyPrzycisk = pierwszyPrzycisk;
 	}
-    
-    
-    
    
 }
